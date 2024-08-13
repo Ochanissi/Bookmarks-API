@@ -25,6 +25,7 @@ model User {
   lastName  String?
 
   bookmarks Bookmark[]
+  settings  UserSettings?
 
   @@map("users")
 }
@@ -42,4 +43,21 @@ model Bookmark {
   user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("bookmarks")
+}
+
+model UserSettings {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  language   String     @default("en")
+  timeFormat TimeFormat @default(FULL)
+
+  userId Int  @unique
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+enum TimeFormat {
+  HALF
+  FULL
 }

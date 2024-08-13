@@ -5,6 +5,7 @@ import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import { PrismaService } from '../prisma/prisma.service';
+import { TimeFormat } from '@prisma/client';
 
 @Injectable()
 export class AuthService {
@@ -22,6 +23,9 @@ export class AuthService {
         data: {
           email: dto.email,
           hash,
+          settings: {
+            create: {},
+          },
         },
       });
 
